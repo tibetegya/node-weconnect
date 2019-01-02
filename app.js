@@ -22,9 +22,13 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/auth', usersRouter);
 app.use('/businesses', businessRouter);
 app.use('/reviews', reviewsRouter);
+
+//Set up mongoose connection
+const db = require('./database');
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
