@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - "stable"
+services:
+  - mongodb
+env:
+  global:
+    - MONGODB_URI=mongodb://localhost/dev_db
+    - TEST_MONGODB_URI=mongodb://localhost/testing
+    - PORT=5000
+    - SECRET_KEY=secret-key
+    - APP_UUID=217acf0c-1336-4850-91c2-be8624ecc188
+    - EMAIL_HOST=smtp.gmail.com
+    - EMAIL_PORT=587
+    - EMAIL_SERVICE=gmail
+    - EMAIL_USER=test@gmail.com
+    - EMAIL_PASS=testpass
+    - EMAIL_FROM=test@gmail.com
+cache:
+  directories:
+  - node_modules
+before_script:
+  - sleep 15
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+script: 
+  - "npm run test:cov"
+after_success: npm run coverage

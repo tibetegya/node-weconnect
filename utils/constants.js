@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const dbUrl = process.env.MONGODB_URI;
+const testDbUrl = process.env.TEST_MONGODB_URI;
 
 const userReturnFeilds = '_id\
   username\
@@ -37,6 +38,7 @@ const emailOptions = {
 
 module.exports = {
   dbUrl,
+  testDbUrl,
   appId,
   userReturnFeilds,
   secretKey,
