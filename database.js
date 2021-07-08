@@ -1,7 +1,10 @@
 var mongoose = require('mongoose');
-const CONSTANTS = require('./utils/constants')
+const { dbUrl, testDbUrl } = require('./utils/constants')
 
-let mongoDB = process.env.MONGODB_URI || CONSTANTS.dev_db_url;
+let mongoDB = dbUrl;
+if(process.env.NODE_ENV === 'test'){
+  mongoDB = testDbUrl;
+}
 mongoose.connect(mongoDB, { useNewUrlParser: true });
 
 module.exports = mongoose.connection;
